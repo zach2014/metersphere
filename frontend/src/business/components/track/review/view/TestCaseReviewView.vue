@@ -203,4 +203,8 @@ export default {
   line-height: 50px;
   color: dimgray;
 }
+
+.el-menu-item {
+  padding: 0 10px;
+}
 </style>

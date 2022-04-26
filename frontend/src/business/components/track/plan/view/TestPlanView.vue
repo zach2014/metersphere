@@ -10,24 +10,17 @@
           @dataChange="changePlan"/>
       </template>
       <template v-slot:menu>
-        <el-menu v-if="isMenuShow" :active-text-color="color" :default-active="activeIndex"
-                 class="el-menu-demo header-menu" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="functional">{{ $t('test_track.functional_test_case') }}</el-menu-item>
-          <el-menu-item index="api" v-modules="['api']">{{ $t('test_track.api_test_case') }}</el-menu-item>
-          <el-menu-item index="load" v-modules="['performance']">{{ $t('test_track.performance_test_case') }}</el-menu-item>
-          <el-menu-item index="report">{{ $t('test_track.report_statistics') }}</el-menu-item>
+        <el-menu v-if="isMenuShow" :active-text-color="color" :default-active="activeIndex" router
+                 class="el-menu-demo header-menu" mode="horizontal" :unique-opened="true">
+          <el-menu-item :index="'/track/plan/view/' + planId + '/functional'">{{ $t('test_track.functional_test_case') }}</el-menu-item>
+          <el-menu-item :index="'/track/plan/view/' + planId + '/api'" v-modules="['api']">{{ $t('test_track.api_test_case') }}</el-menu-item>
+          <el-menu-item :index="'/track/plan/view/' + planId + '/load'" v-modules="['performance']">{{ $t('test_track.performance_test_case') }}</el-menu-item>
+          <el-menu-item :index="'/track/plan/view/' + planId + '/report'">{{ $t('test_track.report_statistics') }}</el-menu-item>
         </el-menu>
       </template>
     </ms-test-plan-header-bar>
 
-    <test-plan-functional v-if="activeIndex === 'functional'" :redirectCharType="redirectCharType"
-                          :clickType="clickType" :plan-id="planId" :version-enable="versionEnable"
-                          ref="testPlanFunctional"/>
-    <test-plan-api v-if="activeIndex === 'api'" :redirectCharType="redirectCharType" :clickType="clickType"
-                   :plan-id="planId" :version-enable="versionEnable"/>
-    <test-plan-load v-if="activeIndex === 'load'" :redirectCharType="redirectCharType" :clickType="clickType"
-                    :plan-id="planId" :version-enable="versionEnable"/>
-    <test-plan-report-content class="plan-report" v-if="activeIndex === 'report'" :plan-id="planId" :version-enable="versionEnable"/>
+    <router-view />
 
     <is-change-confirm
       :title="'请保存脑图'"
@@ -199,5 +192,9 @@ export default {
 
 .plan-report >>> .report-content {
   height: calc(100vh - 140px);
+}
+
+.el-menu-item {
+  padding: 0 10px;
 }
 </style>

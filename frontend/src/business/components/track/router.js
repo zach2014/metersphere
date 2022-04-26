@@ -9,6 +9,10 @@ const TestPlanView = () => import('@/business/components/track/plan/view/TestPla
 const reportListView = () => import('@/business/components/track/report/TestPlanReport')
 const issueList = () => import('@/business/components/track/issue/IssueList.vue')
 // const reportListView = () => import('@/business/components/track/plan/TestPlan')
+const TestPlanFunctional = ()=> import('@/business/components/track/plan/view/comonents/functional/TestPlanFunctional')
+const TestPlanApi = ()=> import('@/business/components/track/plan/view/comonents/api/TestPlanApi')
+const TestPlanLoad = ()=> import('@/business/components/track/plan/view/comonents/load/TestPlanLoad')
+const TestPlanReportContent = ()=> import('@/business/components/track/plan/view/comonents/report/detail/TestPlanReportContent')
 
 export default {
   path: "/track",
@@ -56,7 +60,29 @@ export default {
     {
       path: "plan/view/:planId",
       name: "planView",
-      component: TestPlanView
+      component: TestPlanView,
+      children: [
+        {
+          path: 'functional',
+          name: 'TestPlanFunctional',
+          component: TestPlanFunctional
+        },
+        {
+          path: 'api',
+          name: 'TestPlanApi',
+          component: TestPlanApi
+        },
+        {
+          path: 'load',
+          name: 'TestPlanLoad',
+          component: TestPlanLoad
+        },
+        {
+          path: 'load',
+          name: 'TestPlanReportContent',
+          component: TestPlanReportContent
+        }
+      ]
     },
     {
       path: "plan/view/edit/:caseId",
