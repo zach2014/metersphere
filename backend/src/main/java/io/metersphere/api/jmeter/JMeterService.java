@@ -35,12 +35,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.List;
 
 @Service
+@Slf4j
 public class JMeterService {
     public static final String BASE_URL = "http://%s:%d";
     @Resource
@@ -54,6 +57,7 @@ public class JMeterService {
     private void init() {
         String JMETER_HOME = getJmeterHome();
 
+        log.info("JMETER_HOME: " + JMETER_HOME);
         String JMETER_PROPERTIES = JMETER_HOME + "/bin/jmeter.properties";
         JMeterUtils.loadJMeterProperties(JMETER_PROPERTIES);
         JMeterUtils.setJMeterHome(JMETER_HOME);
